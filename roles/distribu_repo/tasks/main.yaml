@@ -1,0 +1,4 @@
+- name: Copy yum.repo to all hosts
+  template:
+    src: templates/local.repo.j2
+    dest: /etc/yum.repos.d/local.repo

@@ -1,0 +1,10 @@
+---
+- name: playbook - 1
+  hosts: all
+  tasks: 
+    - name: taks - 1
+      ansible.builtin.yum:
+        name:
+          - vim
+          - gcc
+          - httpd

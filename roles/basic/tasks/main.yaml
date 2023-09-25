@@ -1,0 +1,30 @@
+---
+- name: Install common packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vim
+    - gcc
+    - curl
+    - wget
+    - unzip
+    - lrzsz
+    # 在这里可以添加其他常用软件
+
+- name: Disable firewall
+  service:
+    name: firewalld
+    enabled: no
+    state: stopped
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Increase max file open limit
+  sysctl:
+    name: fs.file-max
+    value: "65535"
+    state: present
+    sysctl_set: yes

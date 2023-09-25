@@ -1,0 +1,6 @@
+---
+- name: Apply common role
+  hosts: http_server
+  become: yes
+  roles:
+    - create_yum_repo

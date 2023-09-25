@@ -1,0 +1,36 @@
+# roles/create_yum_repo/tasks/main.yml
+# 该role中，有几个task
+- name: 安装httpd服务
+  yum:
+    name: httpd
+    state: present
+  # with_items:
+  #   - httpd
+
+- name: 安装httpd服务
+  yum:
+    name: createrepo
+    state: present
+
+- name: Create symlink to RPM packages
+  file:
+    src: /data01/rpm_tar_ball/
+    dest: /var/www/html/rpm_tar_ball
+    state: link
+
+- name: Create symlink to other packages
+  file:
+    src: /data01/other_tar_ball/
+    dest: /var/www/html/other_tar_ball
+    state: link
+
+- name: Start httpd service
+  systemd:
+    name: httpd
+    enabled: yes
+    state: started
+
+- name: Create local yum repository
+  command: createrepo /data01/rpm_tar_ball
+  args:
+    creates: /data01/rpm_tar_ball/repodata/repomd.xml
